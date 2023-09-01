@@ -48,7 +48,7 @@ endGame = do
     pure ()
 
 type Board = [[Char]]
-type Position = (Int, Int) --x, y
+type Position = (Int, Int) --y, x 
 
 boardStr :: Board -> String
 boardStr board =
