@@ -19,6 +19,9 @@ gameLoop board moving = do
   input <- getLine
 
   let move = parseInput input
+  putStrLn $ show $ move
+  putStrLn $ show $ board
+  putStrLn $ show $ getPos board (fst move)
   if snd move && (getPos board $ fst move) == ' ' then do
     let newBoard = setPos board (fst move) moving
     putStrLn $ boardStr newBoard
@@ -39,7 +42,7 @@ endGame = do
   putStrLn "The Game has Ended"
   putStr "Would you like to restart (Y/N): "
   input <- getLine
-  if input == "Y" then 
+  if input == "Y" || input == "y" then 
     startGame
   else
     pure ()
@@ -49,8 +52,8 @@ type Position = (Int, Int) --x, y
 
 boardStr :: Board -> String
 boardStr board =
-  columns ++ "\n"
-  ++ intercalate "\n" [labelRow (board!!row) row | row <- [0..2]]
+  columns ++ "\n" ++
+  intercalate "\n" [labelRow (board!!row) row | row <- [0..2]]
   where
     columns = ' ':intercalate " " ("":deepen ['A'..'C'])
     labelRow board row = 
@@ -97,7 +100,7 @@ setPos board (x,y) to =
   setRow board y (setRow (board!!y) x to) 
 
 getPos :: Board -> Position -> Char
-getPos board (x,y) = board!!x!!y
+getPos board (x,y) = board!!y!!x
 
 allEq :: Eq a => [a] -> Bool
 allEq (x:xs) = all (==x) xs
