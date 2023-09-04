@@ -19,9 +19,6 @@ gameLoop board moving = do
   input <- getLine
 
   let move = parseInput input
-  putStrLn $ show $ move
-  putStrLn $ show $ board
-  putStrLn $ show $ getPos board (fst move)
   if snd move && (getPos board $ fst move) == ' ' then do
     let newBoard = setPos board (fst move) moving
     putStrLn $ boardStr newBoard
